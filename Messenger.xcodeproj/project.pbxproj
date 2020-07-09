@@ -9,21 +9,33 @@
 /* Begin PBXBuildFile section */
 		005E155B24B7388C00860845 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E155A24B7388C00860845 /* AppDelegate.swift */; };
 		005E155D24B7388C00860845 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E155C24B7388C00860845 /* SceneDelegate.swift */; };
-		005E155F24B7388C00860845 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E155E24B7388C00860845 /* ViewController.swift */; };
+		005E155F24B7388C00860845 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E155E24B7388C00860845 /* ConversationsViewController.swift */; };
 		005E156224B7388C00860845 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 005E156024B7388C00860845 /* Main.storyboard */; };
 		005E156424B7388E00860845 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 005E156324B7388E00860845 /* Assets.xcassets */; };
 		005E156724B7388E00860845 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 005E156524B7388E00860845 /* LaunchScreen.storyboard */; };
+		005E157524B73CCB00860845 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E157424B73CCB00860845 /* LoginViewController.swift */; };
+		005E157724B73CFC00860845 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E157624B73CFC00860845 /* RegisterViewController.swift */; };
+		005E157924B73D2F00860845 /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E157824B73D2F00860845 /* PhotoViewerViewController.swift */; };
+		005E157B24B73D4B00860845 /* VideoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E157A24B73D4B00860845 /* VideoPlayerViewController.swift */; };
+		005E157D24B73D8000860845 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E157C24B73D8000860845 /* NewConversationViewController.swift */; };
+		005E157F24B73DAB00860845 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 005E157E24B73DAB00860845 /* ProfileViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		005E155724B7388C00860845 /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		005E155A24B7388C00860845 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		005E155C24B7388C00860845 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		005E155E24B7388C00860845 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		005E155E24B7388C00860845 /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
 		005E156124B7388C00860845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		005E156324B7388E00860845 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		005E156624B7388E00860845 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		005E156824B7388E00860845 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		005E157424B73CCB00860845 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		005E157624B73CFC00860845 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		005E157824B73D2F00860845 /* PhotoViewerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoViewerViewController.swift; sourceTree = "<group>"; };
+		005E157A24B73D4B00860845 /* VideoPlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayerViewController.swift; sourceTree = "<group>"; };
+		005E157C24B73D8000860845 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
+		005E157E24B73DAB00860845 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,15 +68,69 @@
 		005E155924B7388C00860845 /* Messenger */ = {
 			isa = PBXGroup;
 			children = (
-				005E155A24B7388C00860845 /* AppDelegate.swift */,
-				005E155C24B7388C00860845 /* SceneDelegate.swift */,
-				005E155E24B7388C00860845 /* ViewController.swift */,
-				005E156024B7388C00860845 /* Main.storyboard */,
-				005E156324B7388E00860845 /* Assets.xcassets */,
-				005E156524B7388E00860845 /* LaunchScreen.storyboard */,
+				005E157224B73B7C00860845 /* Resources */,
+				005E157124B73B7400860845 /* ViewModels */,
+				005E157024B73B6E00860845 /* Models */,
+				005E156F24B73B6200860845 /* Views */,
+				005E156E24B73B5500860845 /* Controllers */,
 				005E156824B7388E00860845 /* Info.plist */,
 			);
 			path = Messenger;
+			sourceTree = "<group>";
+		};
+		005E156E24B73B5500860845 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				005E155E24B7388C00860845 /* ConversationsViewController.swift */,
+				005E157424B73CCB00860845 /* LoginViewController.swift */,
+				005E157624B73CFC00860845 /* RegisterViewController.swift */,
+				005E157824B73D2F00860845 /* PhotoViewerViewController.swift */,
+				005E157A24B73D4B00860845 /* VideoPlayerViewController.swift */,
+				005E157C24B73D8000860845 /* NewConversationViewController.swift */,
+				005E157E24B73DAB00860845 /* ProfileViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		005E156F24B73B6200860845 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				005E157324B73BB700860845 /* Storyboards */,
+				005E156324B7388E00860845 /* Assets.xcassets */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		005E157024B73B6E00860845 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		005E157124B73B7400860845 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		005E157224B73B7C00860845 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				005E155A24B7388C00860845 /* AppDelegate.swift */,
+				005E155C24B7388C00860845 /* SceneDelegate.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		005E157324B73BB700860845 /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				005E156024B7388C00860845 /* Main.storyboard */,
+				005E156524B7388E00860845 /* LaunchScreen.storyboard */,
+			);
+			path = Storyboards;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,9 +204,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				005E155F24B7388C00860845 /* ViewController.swift in Sources */,
+				005E157524B73CCB00860845 /* LoginViewController.swift in Sources */,
+				005E157724B73CFC00860845 /* RegisterViewController.swift in Sources */,
+				005E157D24B73D8000860845 /* NewConversationViewController.swift in Sources */,
+				005E155F24B7388C00860845 /* ConversationsViewController.swift in Sources */,
+				005E157B24B73D4B00860845 /* VideoPlayerViewController.swift in Sources */,
 				005E155B24B7388C00860845 /* AppDelegate.swift in Sources */,
+				005E157F24B73DAB00860845 /* ProfileViewController.swift in Sources */,
 				005E155D24B7388C00860845 /* SceneDelegate.swift in Sources */,
+				005E157924B73D2F00860845 /* PhotoViewerViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
