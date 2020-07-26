@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import FBSDKLoginKit
 
 class LoginViewController: UITabBarController {
 
@@ -60,7 +61,7 @@ class LoginViewController: UITabBarController {
         return field
     }()
     
-    @objc private let loginButton: UIButton = {
+    private let loginButton: UIButton = {
         let button = UIButton()
         button.setTitle("Log In", for: .normal)
         button.backgroundColor = .link
@@ -70,6 +71,8 @@ class LoginViewController: UITabBarController {
         button.titleLabel?.font = .systemFont(ofSize: 20, weight: .bold)
         return button
     }()
+    
+    private let facebookLoginButton = FBLoginButton()
     
     //MARK: - LifeCycle
     
@@ -96,6 +99,7 @@ class LoginViewController: UITabBarController {
         scrollView.addSubview(emailField)
         scrollView.addSubview(passwordField)
         scrollView.addSubview(loginButton)
+        scrollView.addSubview(facebookLoginButton)
     }
     
     override func viewDidLayoutSubviews() {
@@ -123,7 +127,8 @@ class LoginViewController: UITabBarController {
                                    width: scrollView.width - 60,
                                    height: 52)
         
-        
+        facebookLoginButton.center = scrollView.center
+        facebookLoginButton.frame.origin.y = loginButton.bottom + 20
     }
     
     
@@ -182,7 +187,7 @@ class LoginViewController: UITabBarController {
  
  
  //MARK: - UITextFieldDelegate extention
- // klavyeden next veya go tusuna basildiginda sonraki textField'a gecmemiz icin.
+ //klavyeden next veya go tusuna basildiginda sonraki textField'a gecmemiz icin.
  
  extension LoginViewController: UITextFieldDelegate {
     
