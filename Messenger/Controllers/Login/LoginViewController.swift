@@ -72,7 +72,11 @@ class LoginViewController: UITabBarController {
         return button
     }()
     
-    private let facebookLoginButton = FBLoginButton()
+    private let facebookLoginButton: FBLoginButton = {
+        let button = FBLoginButton()
+        button.permissions = ["email,public_profile"]
+        return button
+    }()
     
     //MARK: - LifeCycle
     
@@ -85,6 +89,7 @@ class LoginViewController: UITabBarController {
                                                             style: .done,
                                                             target: self,
                                                             action: #selector(didTapRegister))
+        facebookLoginButton.delegate = self
         
         loginButton.addTarget(self,
                               action: #selector(loginButtonTapped),
@@ -202,5 +207,74 @@ class LoginViewController: UITabBarController {
         
         return true
     }
+    
+ }
+ 
+ //MARK: - continue wirh Facebook extension
+ 
+ extension LoginViewController: LoginButtonDelegate {
+    func loginButtonDidLogOut(_ loginButton: FBLoginButton) {
+        // no operation
+    }
+    
+    func loginButton(_ loginButton: FBLoginButton, didCompleteWith result: LoginManagerLoginResult?, error: Error?) {
+        guard let token = result?.token?.tokenString else {
+            print("User failed to log in with facebook")
+            return
+        }
+        
+        let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
+                                                         parameters: ["fields":"email, name"],
+                                                         tokenString: token,
+                                                         version: nil, httpMethod: .get)
+        
+        facebookRequest.start { (_, result, error) in
+            guard let result = result as? [String: Any], error == nil else {
+                print("Failed ti make Fb graph request")
+                return
+            }
+            
+            guard let  userName = result["name"] as? String,
+                let email = result["email"] as? String else {
+                    print("Failed to get email and name from fb result")
+                    return
+            }
+            
+            //dirty
+            let nameComponents = userName.components(separatedBy: " ")
+            guard nameComponents.count == 2 else {
+                return
+            }
+            
+            let firstName = nameComponents[0]
+            let lastName = nameComponents[1]
+            
+            DatabaseManager.shared.userExist(with: email) { (exists) in
+                if !exists {
+                    DatabaseManager.shared.insertUser(with: ChatAppUser(firstName: firstName,
+                                                                        lastName: lastName,
+                                                                        emailAddress: email))
+                }
+            }
+            
+            let credential = FacebookAuthProvider.credential(withAccessToken: token)
+            
+            FirebaseAuth.Auth.auth().signIn(with: credential) { [weak self] (authResult, error) in
+                guard let strongself = self else{
+                    return
+                }
+                
+                guard authResult != nil, error == nil else {
+                    print("Facebook credential login failled")
+                    return
+                }
+                
+                strongself.navigationController?.dismiss(animated: true, completion: nil)
+            }
+        }
+        
+
+    }
+    
     
  }
