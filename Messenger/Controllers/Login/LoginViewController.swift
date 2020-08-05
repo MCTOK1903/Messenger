@@ -10,10 +10,13 @@ import UIKit
 import FirebaseAuth
 import FBSDKLoginKit
 import GoogleSignIn
-
+import JGProgressHUD
+ 
 class LoginViewController: UITabBarController {
 
     //MARK: - Properties
+    
+    private let spinner = JGProgressHUD(style: .dark)
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -178,6 +181,8 @@ class LoginViewController: UITabBarController {
     
     @objc private func loginButtonTapped(){
         
+        spinner.show(in: view)
+        
         emailField.resignFirstResponder()
         passwordField.resignFirstResponder()
         
@@ -192,6 +197,11 @@ class LoginViewController: UITabBarController {
             guard let strongSelf = self else {
                 return
             }
+            
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()
+            }
+            
             guard let result = authResult, error == nil else {
                 print("Failed to log in in user with email: \(email)")
                 return
