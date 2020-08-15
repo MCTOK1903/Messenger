@@ -39,6 +39,10 @@ class ConversationsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .compose,
+                                                            target: self,
+                                                            action: #selector(didTapComposeButton))
+        
         view.addSubview(tableview)
         view.addSubview(noConversationsLabel)
         
@@ -59,6 +63,8 @@ class ConversationsViewController: UIViewController {
         
     }
     
+    //MARK: - Funcs
+    
     private func validateAuth(){
         if FirebaseAuth.Auth.auth().currentUser == nil {
             let vc = LoginViewController()
@@ -76,9 +82,18 @@ class ConversationsViewController: UIViewController {
     private func fetchConversations() {
         tableview.isHidden = false
     }
+    
+    //MARK: - Selectors
+    
+    @objc func didTapComposeButton(){
+        let vc = NewConversationViewController()
+        let navVC = UINavigationController(rootViewController: vc)
+        present(navVC,animated: true)
+    }
+    
 }
 
-
+//MARK: - Extension: UITableViewDelegate, UITableViewDataSource
 extension ConversationsViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
