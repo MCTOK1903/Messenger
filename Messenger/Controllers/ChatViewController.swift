@@ -9,7 +9,7 @@
 import UIKit
 import MessageKit
 
-
+//MARK: - Structs
 struct Message: MessageType {
     
     var sender: SenderType
@@ -28,15 +28,16 @@ struct Sender: SenderType {
 }
 
 
-
+//MARK: - Messages Kit
 class ChatViewController: MessagesViewController {
     
+    //MARK: - Properties
     private var messages = [Message]()
     
     private let selfSender = Sender(photoURL: "",
                                     senderId: "1",
                                     displayName: "Joe")
-
+    //MARK: - LifeCycle
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -60,7 +61,7 @@ class ChatViewController: MessagesViewController {
 
 }
 
-
+//MARK: - Extension: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate
 extension ChatViewController: MessagesDataSource, MessagesLayoutDelegate, MessagesDisplayDelegate {
     
     func currentSender() -> SenderType {
