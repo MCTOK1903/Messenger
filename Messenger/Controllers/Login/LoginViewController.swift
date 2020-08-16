@@ -264,30 +264,27 @@ class LoginViewController: UITabBarController {
         }
         
         let facebookRequest = FBSDKLoginKit.GraphRequest(graphPath: "me",
-                                                         parameters: ["fields":"email, name"],
+                                                         parameters: ["fields":
+                                                            "email, first_name, last_name, picture.type(large)"],
                                                          tokenString: token,
                                                          version: nil, httpMethod: .get)
         
         facebookRequest.start { (_, result, error) in
             guard let result = result as? [String: Any], error == nil else {
-                print("Failed ti make Fb graph request")
+                print("Failed to make Fb graph request")
                 return
             }
             
-            guard let  userName = result["name"] as? String,
-                let email = result["email"] as? String else {
+            guard let  firstName = result["first_name"] as? String,
+                let  lastName = result["last_name"] as? String,
+                let email = result["email"] as? String,
+                let picture = result["picture"] as? [String:Any],
+                let data = picture["data"] as? [String:Any],
+                let pictureUrl = data["url"] as? String else {
                     print("Failed to get email and name from fb result")
                     return
             }
-            
-            //dirty
-            let nameComponents = userName.components(separatedBy: " ")
-            guard nameComponents.count == 2 else {
-                return
-            }
-            
-            let firstName = nameComponents[0]
-            let lastName = nameComponents[1]
+
             
             DatabaseManager.shared.userExist(with: email) { (exists) in
                 if !exists {
@@ -296,7 +293,33 @@ class LoginViewController: UITabBarController {
                                                emailAddress: email)
                     DatabaseManager.shared.insertUser(with: chatUser, completion: {success in
                         if success {
-                            //Uplaod image
+                            
+                            guard let url = URL(string: pictureUrl) else {
+                                return
+                            }
+                            
+                            print("Donloding data from FB image")
+                            
+                            //Download Fb profile photo
+                            URLSession.shared.dataTask(with: url) { (data, _, _) in
+                                guard let data = data else {
+                                    print("Failed to get data from FB ")
+                                    return
+                                }
+                                
+                                print("got data from Fb, uploading...")
+                                let fileName = chatUser.profilePictureFileName
+                                
+                                StorageManager.shared.uploadProflePicture(with: data, filename: fileName) { (result) in
+                                    switch result {
+                                    case .success(let downloadUrl):
+                                        UserDefaults.standard.set(downloadUrl, forKey: "profile_picture_url")
+                                        print("donwloadUrl: \(downloadUrl)")
+                                    case .failure(let error):
+                                        print("Error \(error)")
+                                    }
+                                }
+                            }
                         }
                     })
                 }
