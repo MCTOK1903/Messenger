@@ -72,4 +72,9 @@ struct ChatAppUser {
         
         return safeEmail
     }
+    
+    var profilePictureFileName: String {
+        //image/joe-gmail-com_profile_piture.png
+        return "\(safeEmail)_profile_picture.png"
+    }
 }
