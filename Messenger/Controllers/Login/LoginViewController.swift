@@ -319,7 +319,7 @@ class LoginViewController: UITabBarController {
                                         print("Error \(error)")
                                     }
                                 }
-                            }
+                            }.resume()
                         }
                     })
                 }

@@ -89,6 +89,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
                 DatabaseManager.shared.insertUser(with: chatUser, completion: { success in
                     if success {
                         //upload image
+                        
+                        if user.profile.hasImage {
+                            guard let url = user.profile.imageURL(withDimension: 200) else {
+                                return
+                            }
+                            
+                            URLSession.shared.dataTask(with: url) { (data, _, _) in
+                                guard let data = data else {
+                                    return
+                                }
+                                
+                                let fileName = chatUser.profilePictureFileName
+                                StorageManager.shared.uploadProflePicture(with: data, filename: fileName) { (result) in
+                                    switch result {
+                                    case .success(let downloadURL):
+                                        UserDefaults.standard.set(downloadURL, forKey: "profile_picture_url")
+                                        print(downloadURL)
+                                    case.failure(let error):
+                                        print("Error \(error)")
+                                    }
+                                }
+                                
+                            }.resume()
+                        }
                     }
                 })
             }
