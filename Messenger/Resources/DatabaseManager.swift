@@ -58,10 +58,56 @@ extension DatabaseManager {
                     completion(false)
                     return
                 }
-                completion(true)
+                
+                self.database.child("users").observeSingleEvent(of: .value) { (snapshot) in
+                    if var usersCollection = snapshot.value as? [[String:String]] {
+                        //append to user dic.
+                        let newElement = [
+                            "name": user.firstName + " " + user.lastName,
+                            "email": user.safeEmail
+                        ]
+                        usersCollection.append(newElement)
+                        
+                        self.database.child("users").setValue(usersCollection, withCompletionBlock: { error, _ in
+                            guard error == nil else {
+                                completion(false)
+                                return
+                            }
+                            completion(true)
+                        })
+                        
+                    } else {
+                        //create array
+                        let newCollection: [[String:String]] = [
+                            [
+                                "name": user.firstName + " " + user.lastName,
+                                "email": user.safeEmail
+                            ]
+                        ]
+                        
+                        self.database.child("users").setValue(newCollection, withCompletionBlock: { error, _ in
+                            guard error == nil else {
+                                completion(false)
+                                return
+                            }
+                            completion(true)
+                        })
+                    }
+                }
         })
     }
-    
+    /*
+     users => [
+                [
+                    "name":
+                    "safeEmail":
+                ],
+                [
+                    "name":
+                    "safeEmail":
+                ],
+             ]
+     */
 }
 
 
