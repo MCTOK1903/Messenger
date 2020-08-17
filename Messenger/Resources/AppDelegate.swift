@@ -80,6 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, GIDSignInDelegate {
             return
         }
         
+        UserDefaults.standard.set(email, forKey: "email")
+        
         DatabaseManager.shared.userExist(with: email) { (exists) in
             if !exists {
                 //insert to database

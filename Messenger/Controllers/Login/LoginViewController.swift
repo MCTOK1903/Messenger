@@ -208,6 +208,9 @@ class LoginViewController: UITabBarController {
             }
             
             let user = result.user
+            
+            UserDefaults.standard.set(email, forKey: "email")
+            
             print("Logged in User: \(user)")
             strongSelf.navigationController?.dismiss(animated: true, completion: nil)
             
@@ -285,6 +288,7 @@ class LoginViewController: UITabBarController {
                     return
             }
 
+            UserDefaults.standard.set(email, forKey: "email")
             
             DatabaseManager.shared.userExist(with: email) { (exists) in
                 if !exists {
