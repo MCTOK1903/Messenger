@@ -9,6 +9,25 @@
 import Foundation
 import FirebaseDatabase
 
+//MARK: - struct
+struct ChatAppUser {
+    let firstName: String
+    let lastName: String
+    let emailAddress: String
+    
+    var safeEmail: String {
+        var safeEmail = emailAddress.replacingOccurrences(of: ".", with: "-")
+        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
+        return safeEmail
+    }
+    
+    var profilePictureFileName: String {
+        //image/joe-gmail-com_profile_piture.png
+        return "\(safeEmail)_profile_picture.png"
+    }
+}
+
+//MARK: - Class
 final class DatabaseManager {
     
     static let shared = DatabaseManager()
@@ -22,11 +41,20 @@ final class DatabaseManager {
     }
 }
 
+
+
+
 //MARK: - Account Management
+//MARK: - Extension: DatabaseManager
 
 extension DatabaseManager {
     
+    //MARK: - errors enum
+    public enum DatabaseError: Error {
+        case failedToFetch
+    }
     
+    //MARK: - funcs
     /// checking user email in firebase
     public func userExist(with email: String,
                           completion: @escaping ((Bool) -> Void)){
@@ -108,22 +136,19 @@ extension DatabaseManager {
                 ],
              ]
      */
+    
+    ///get all users from firease
+    public func getAllUsers(completion: @escaping(Result<[[String:String]], Error>)-> Void) {
+        database.child("users").observeSingleEvent(of: .value) { (snapshot) in
+            guard let value = snapshot.value as? [[String:String]] else {
+                completion(.failure(DatabaseError.failedToFetch))
+                return
+            }
+            
+            completion(.success(value))
+        }
+    }
+    
 }
 
 
-struct ChatAppUser {
-    let firstName: String
-    let lastName: String
-    let emailAddress: String
-    
-    var safeEmail: String {
-        var safeEmail = emailAddress.replacingOccurrences(of: ".", with: "-")
-        safeEmail = safeEmail.replacingOccurrences(of: "@", with: "-")
-        return safeEmail
-    }
-    
-    var profilePictureFileName: String {
-        //image/joe-gmail-com_profile_piture.png
-        return "\(safeEmail)_profile_picture.png"
-    }
-}
