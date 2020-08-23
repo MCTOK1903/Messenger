@@ -44,8 +44,7 @@ final class DatabaseManager {
 
 
 
-//MARK: - Account Management
-//MARK: - Extension: DatabaseManager
+//MARK: - Extension: Account Management
 
 extension DatabaseManager {
     
@@ -147,6 +146,31 @@ extension DatabaseManager {
             
             completion(.success(value))
         }
+    }
+    
+}
+
+//MARK: - Sending Messages / Conversations
+extension DatabaseManager{
+    
+    ///Creates a new conversation with target user email and first nessages sent
+    public func createNewConversation(with otherUserEmail:String, firstMessages: Message, completion: @escaping(Bool)-> Void){
+        
+    }
+    
+    ///Fetches and results all conversation for the user with passed in email
+    public func getAllConversations(for email:String, completion: @escaping (Result<String, Error>)-> Void){
+        
+    }
+    
+    /// Get all messages for a given conversations
+    public func getAllMessagesForConversation(with id:String, completion: @escaping(Result<String, Error>)->Void){
+        
+    }
+    
+    ///Sends a messages wiith target conversation and messages
+    public func sendMessage(to conversation: String, message:Message, completion: @escaping(Bool)->Void){
+        
     }
     
 }
